@@ -17,16 +17,12 @@
   <link rel="stylesheet" href="{{ "/assets/ux-library.css" | prepend: site.baseurl }}">
   <!-- The following path should be used when build step is added for ux-library.less -->
   <!-- <link rel="stylesheet" href="https://static.scania.com/resources/ux-library.css"> -->
-
-  {% assign root = 'http://localhost:1337/' %}
   
   {% if jekyll.environment == 'production' %}
-    {% assign root = 'https://static.scania.com/build/global/2.3.1/' %}
-
     {% if site.google_analytics %}
       {% include google-analytics.html %}
     {% endif %}
   {% endif %}
 
-  <script src="{{root}}js/corporate-ui.js"></script>
+  <script src="https://static.scania.com/build/global/2.4.1/js/corporate-ui.js"></script>
 </head>
