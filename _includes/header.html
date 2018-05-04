@@ -1,0 +1,71 @@
+
+<!-- Move this style to global place later on and refactored -->
+<style>
+  c-corporate-header nav-item.expanded,
+  c-corporate-header nav-item.collapsed {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  c-corporate-header nav-item.expanded > span,
+  c-corporate-header nav-item.collapsed > span {
+    text-transform: uppercase;
+  }
+  c-corporate-header nav-item.expanded > span:after,
+  c-corporate-header nav-item.collapsed > span:after {
+    display: inline-block;
+    font-family: 'corporate-icons';
+    content: "\e6be";
+    transition: transform 200ms;
+  }
+  c-corporate-header nav-item.expanded > span:after {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  }
+  c-corporate-header nav-item.nav-item > .mode-toggler {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation nav-item > a.nav-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation nav-item > a.nav-item:hover:after {
+    content: none;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation nav-item + nav-item {
+    border-top: 1px solid #f5f5f5;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation .caption {
+    display: none;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation {
+    display: block;
+    right: auto;
+  }
+  c-corporate-header nav-item.expanded > sub-navigation .navbar-default {
+    background-color: #fff;
+    border: 1px solid #f5f5f5;
+  }
+</style>
+
+<c-corporate-header site-name="{{ site.title | escape }}" site-url="{{ release_url | prepend: site.baseurl }}">
+  <nav-item class="collapsed">
+    <span>{{page_url[1]}} </span>
+    <sub-navigation>
+      {% for release in releases %}
+        <nav-item location="{{ page.url | replace: page_url[1], release | prepend: site.baseurl }}">{{ release }}</nav-item>
+      {% endfor %}
+    </sub-navigation>
+  </nav-item>
+  <nav-item location="https://www.scania.com/world/#/">World Entry</nav-item>
+  <nav-item location="https://www.scania.com/group/en/">Scania Group</nav-item>
+</c-corporate-header>

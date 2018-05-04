@@ -1,1 +1,29 @@
-{{ content }}
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en-GB" }}">
+
+  {% include head.html %}
+
+  {% assign brand = page.brand | default: site.brand | default: "scania" %}
+
+  <body class="{{ brand }} ux-lib" data-env="{{ jekyll.environment }}">
+
+    {% assign releases = "" | split: "" %}
+    {% assign page_url = page.url | split: "/" %}
+    {% assign release_url = '/' | append: page_url[1] | append: '/' | append: page_url[2] | append: '/' %}
+
+    {% for page_item in site.pages %}
+      {% assign page_item_url = page_item.url | split: "/" %}
+      {% assign releases = releases | push: page_item_url[1] | uniq %}
+    {% endfor %}
+
+    {% include header.html %}
+
+    <c-main-content aria-label="Content">
+      {{ content }}
+    </c-main-content>
+
+    {% include footer.html %}
+
+  </body>
+
+</html>

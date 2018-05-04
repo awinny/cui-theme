@@ -1,0 +1,23 @@
+<c-main-navigation>
+  <primary-items>
+    <nav-item location="{{ release_url | prepend: site.baseurl }}">Library</nav-item>
+    {% for mainpage in mainpages %}
+      {% assign mainpage_url = mainpage.url | split: "/" %}
+      <nav-item location="{{ mainpage.url | remove: 'index' | prepend: site.baseurl }}"{% if page_url[4] == mainpage_url[4] %} class="active"{% endif %}>
+        {{mainpage.title}}
+        <sub-navigation caption="{{mainpage.title}}">
+          {% for page_item in site.pages %}
+            {% assign page_item_url = page_item.url | split: "/" %}
+            {% if mainpage_url[1] == page_item_url[1] and mainpage_url[4] == page_item_url[4] %}
+              {% unless page_item.path contains "index.md" %}
+                <nav-item location="{{ page_item.url | prepend: site.baseurl }}"{% if page_url[5] == page_item_url[5] %} class="active"{% endif %}>
+                  {{page_item.title}}
+                </nav-item>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        </sub-navigation>
+      </nav-item>
+    {% endfor %}
+  </primary-items>
+</c-main-navigation>

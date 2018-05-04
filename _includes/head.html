@@ -1,0 +1,32 @@
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=https://static.scania.com/vendors/components/pure-js/nonJS-browsers/1.0.0/nonJS-browsers.html">
+  </noscript>
+
+  <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+
+  <!-- <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}"> -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
+
+  <link rel="stylesheet" href="{{ "/assets/ux-library.css" | prepend: site.baseurl }}">
+  <!-- The following path should be used when build step is added for ux-library.less -->
+  <!-- <link rel="stylesheet" href="https://static.scania.com/resources/ux-library.css"> -->
+
+  {% assign root = 'http://localhost:1337/' %}
+  
+  {% if jekyll.environment == 'production' %}
+    {% assign root = 'https://static.scania.com/build/global/2.3.1/' %}
+
+    {% if site.google_analytics %}
+      {% include google-analytics.html %}
+    {% endif %}
+  {% endif %}
+
+  <script src="{{root}}js/corporate-ui.js"></script>
+</head>

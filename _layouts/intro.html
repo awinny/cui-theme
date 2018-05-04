@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+{% assign intro_pages = page.url | split: "/" %}
+{% assign page_url = page.url | split: "/" %}
+
+{% for page_item in site.pages %}
+  {% assign page_item_url = page_item.url | split: "/" %}
+
+  {% if page_url[1] == page_item_url[1] %}
+    {% if page_item.icon %}
+      {% assign intro_pages = intro_pages | push: page_item %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<section class="light ux-sections">
+  <div class="container text-center">
+
+    {{ content }}
+
+    <div class="row">
+      {% for subpage in intro_pages %}
+        {% if subpage.icon %}
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <a href="{{ subpage.url | remove: 'index' | prepend: site.baseurl }}"></a>
+            <img src="{{ subpage.icon }}">
+            <h4>{{ subpage.title | escape }}</h4>
+            {{ subpage.description | markdownify }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

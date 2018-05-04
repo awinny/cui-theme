@@ -2,4 +2,35 @@
 layout: default
 ---
 
-{{ content }}
+{% assign mainpages = "" | split: "" %}
+{% assign page_url = page.url | split: "/" %}
+{% assign release_url = '/' | append: page_url[1] | append: '/' | append: page_url[2] | append: '/' %}
+
+{% for page_item in site.pages %}
+  {% assign page_item_url = page_item.url | split: "/" %}
+
+  {% if page_url[1] == page_item_url[1] and page_url[3] == page_item_url[3] %}
+    {% assign path_length = page_item_url | size %}
+    {% if page_item.path contains "index.md" and path_length > 5 %}
+      {% assign mainpages = mainpages | push: page_item %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% include navigation.html %}
+
+<section class="light">
+  <div class="container">
+    <article class="post">
+
+      <header class="post-header">
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+      </header>
+
+      <div class="post-content">
+        {{ content }}
+      </div>
+
+    </article>
+  </div>
+</section>
